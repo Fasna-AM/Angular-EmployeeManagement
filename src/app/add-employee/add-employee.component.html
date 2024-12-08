@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <form [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()"  class="p-5 mt-3 border rounded-4 shadow  ">
+        <h1>Add Employee Details Here !!!</h1>
+        <input placeholder="Username" name="username" formControlName="username"  type="text" class="form-control mt-5" id="exampleInputusername" aria-describedby="usernameHelp">
+        @if (addEmployeeForm.get('username')?.errors && addEmployeeForm.get('username')?.touched ) {
+            <div class="text-danger fw-bolder">*Invalid Username</div>
+        }
+        
+        <input placeholder="Email" name="email" formControlName="email"  type="email" class="form-control mt-3" id="exampleInputEmail1" aria-describedby="emailHelp">
+        @if (addEmployeeForm.get('email')?.errors && addEmployeeForm.get('email')?.touched) {
+            <div class="text-danger fw-bolder">*Invalid Email</div>
+
+        }
+
+        <input placeholder="Age" name="age" formControlName="age"  type="text" class="form-control mt-3" id="exampleInputage" aria-describedby="ageHelp">
+        @if (addEmployeeForm.get('age')?.errors && addEmployeeForm.get('age')?.touched) {
+            <div class="text-danger fw-bolder">*Invalid Age</div>
+
+        }
+        <select class="form-select mt-3" aria-label="Default select example" name="status" formControlName="status">
+            <option style="display: none;" selected>Status</option>
+            <option value="Active">Active</option>
+            <option value="In Active">In Active</option>
+          </select>
+          <div class="d-flex justify-content-evenly">
+            <button class="btn btn-success mt-5" type="submit">ADD EMPLOYEE</button>
+            <a routerLink="/employeedetails" class="btn btn-danger mt-5"> EMPLOYEE DETAILS</a>
+          </div>
+
+    </form>
+</div>

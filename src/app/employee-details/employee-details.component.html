@@ -1,0 +1,114 @@
+<div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
+    <h1 class="text-center">Employee Details </h1>
+    <div class="row">
+        <div class="col-lg-2">
+            <h4>Filter</h4>
+            <button (click)="getAllEmployee()" class="btn fw-bolder">All</button>
+            <button class="btn dropdown-toggle fw-bolder" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Status Type
+            </button>
+            <div class="collapse my-2" id="collapseExample">
+                @for (status of statusArray; track $index) {
+                <button (click)="filterEmployee(status)" class="btn">{{status}}</button>
+
+                }
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <div style="width: max-content;" class="p-5 mt-3 border rounded-4 shadow ">
+                <table class="table shadow border">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Employee Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (emp of allEmployee; track $index) {
+                        <tr>
+                            <td>{{emp.id}}</td>
+                            <td>{{emp.username}}</td>
+                            <td>{{emp.age}}</td>
+                            <td>{{emp.email}}</td>
+                            <td>{{emp.status}}</td>
+                            <td>
+                                <button (click)="getEmployeeDetails(emp.id)" type="button" class="btn btn-primary px-4" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">EDIT</button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true" >
+                                    <div class="modal-dialog" >
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Employee Details
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form [formGroup]="EditEmployeeForm" 
+                                                    class="p-5 mt-3 border rounded-4 shadow  ">
+                                                    <h1>Update Employee Details Here !!!</h1>
+                                                    <input placeholder="Username" name="username"
+                                                        formControlName="username" type="text" class="form-control mt-5"
+                                                        id="exampleInputusername" aria-describedby="usernameHelp" value="{{employeeDetails.username}}" >
+                                                    @if (EditEmployeeForm.get('username')?.errors &&
+                                                    EditEmployeeForm.get('username')?.touched ) {
+                                                    <div class="text-danger fw-bolder">*Invalid Username</div>
+                                                    }
+
+                                                    <input placeholder="Email" name="email" formControlName="email"
+                                                        type="email" class="form-control mt-3" id="exampleInputEmail1"
+                                                        aria-describedby="emailHelp" value="{{employeeDetails.email}}" >
+                                                    @if (EditEmployeeForm.get('email')?.errors &&
+                                                    EditEmployeeForm.get('email')?.touched) {
+                                                    <div class="text-danger fw-bolder">*Invalid Email</div>
+
+                                                    }
+
+                                                    <input placeholder="Age" name="age" formControlName="age"
+                                                        type="text" class="form-control mt-3" id="exampleInputage"
+                                                        aria-describedby="ageHelp" value="{{employeeDetails.age}}" >
+                                                    @if (EditEmployeeForm.get('age')?.errors &&
+                                                    EditEmployeeForm.get('age')?.touched) {
+                                                    <div class="text-danger fw-bolder">*Invalid Age</div>
+
+                                                    }
+                                                    <select class="form-select mt-3" aria-label="Default select example" [value]="employeeDetails.status"
+                                                        name="status" formControlName="status">
+                                                        <option style="display: none;" selected>Status</option >
+                                                        <option value="Active">Active</option>
+                                                        <option value="In Active">In Active</option>
+                                                    </select>
+
+
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button (click)="editEmployee()" type="button" class="btn btn-primary"
+                                                    data-bs-dismiss="modal">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button (click)="deleteEmployee(emp.id)" class="btn btn-danger">DELETE</button>
+                            </td>
+                        </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+                <a routerLink="/addemployee">Back To Add Employee</a>
+            </div>
+        </div>
+    </div>
+
+</div>
